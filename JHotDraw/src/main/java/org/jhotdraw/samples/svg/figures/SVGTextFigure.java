@@ -314,6 +314,7 @@ public class SVGTextFigure
         FONT_SIZE.set(this, Math.abs(p.y));
     }
     
+    @FeatureEntryPoint("Font Size Tool")
     public float getFontSize() {
         //   return FONT_SIZE.get(this).floatValue();
         Point2D.Double p = new Point2D.Double(0, FONT_SIZE.get(this));

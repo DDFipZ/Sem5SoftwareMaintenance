@@ -16,6 +16,7 @@
 
 package org.jhotdraw.draw;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.util.*;
 import java.awt.*;
 import org.jhotdraw.geom.*;

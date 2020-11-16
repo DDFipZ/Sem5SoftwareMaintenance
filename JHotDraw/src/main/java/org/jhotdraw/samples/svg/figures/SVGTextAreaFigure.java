@@ -431,6 +431,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     //  return FILL_COLOR.get(this);
     }
 
+    @FeatureEntryPoint("Font Size Tool")
     public void setFontSize(float size) {
         Point2D.Double p = new Point2D.Double(0, size);
         AffineTransform tx = TRANSFORM.get(this);
