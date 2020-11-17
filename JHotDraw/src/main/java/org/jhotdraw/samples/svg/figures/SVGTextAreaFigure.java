@@ -431,40 +431,6 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     //  return FILL_COLOR.get(this);
     }
 
-    @FeatureEntryPoint("Font Size Tool")
-    public void setFontSize(float size) {
-        Point2D.Double p = new Point2D.Double(0, size);
-        AffineTransform tx = TRANSFORM.get(this);
-        if (tx != null) {
-            try {
-                tx.inverseTransform(p, p);
-                Point2D.Double p0 = new Point2D.Double(0, 0);
-                tx.inverseTransform(p0, p0);
-                p.y -= p0.y;
-            } catch (NoninvertibleTransformException ex) {
-                ex.printStackTrace();
-            }
-        }
-        FONT_SIZE.set(this, Math.abs(p.y));
-    }
-
-    public float getFontSize() {
-        Point2D.Double p = new Point2D.Double(0, FONT_SIZE.get(this));
-        AffineTransform tx = TRANSFORM.get(this);
-        if (tx != null) {
-            tx.transform(p, p);
-            Point2D.Double p0 = new Point2D.Double(0, 0);
-            tx.transform(p0, p0);
-            p.y -= p0.y;
-        /*
-        try {
-        tx.inverseTransform(p, p);
-        } catch (NoninvertibleTransformException ex) {
-        ex.printStackTrace();
-        }*/
-        }
-        return (float) Math.abs(p.y);
-    }
 // EDITING
 
     public boolean isEditable() {

@@ -14,6 +14,7 @@
 
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.event.*;
 import java.awt.image.*;
 import javax.swing.*;
@@ -131,5 +132,41 @@ public abstract class SVGAttributedFigure extends AbstractAttributedFigure {
     }
     @Override final public void read(DOMInput in) throws IOException {
         throw new UnsupportedOperationException("Use SVGStorableInput to read this Figure.");
+    }
+    public void setFontSize(float size) {
+        // FONT_SIZE.basicSet(this, new Double(size));
+        Point2D.Double p = new Point2D.Double(0, size);
+        AffineTransform tx =  TRANSFORM.get(this);
+        if (tx != null) {
+            try {
+                tx.inverseTransform(p, p);
+                Point2D.Double p0 = new Point2D.Double(0, 0);
+                tx.inverseTransform(p0, p0);
+                p.y -= p0.y;
+            } catch (NoninvertibleTransformException ex) {
+                ex.printStackTrace();
+            }
+        }
+        FONT_SIZE.set(this, Math.abs(p.y));
+    }
+    
+    @FeatureEntryPoint("Font Size Tool")
+    public float getFontSize() {
+        //   return FONT_SIZE.get(this).floatValue();
+        Point2D.Double p = new Point2D.Double(0, FONT_SIZE.get(this));
+        AffineTransform tx =  TRANSFORM.get(this);
+        if (tx != null) {
+            tx.transform(p, p);
+            Point2D.Double p0 = new Point2D.Double(0, 0);
+            tx.transform(p0, p0);
+            p.y -= p0.y;
+                /*
+            try {
+                tx.inverseTransform(p, p);
+            } catch (NoninvertibleTransformException ex) {
+                ex.printStackTrace();
+            }*/
+        }
+        return (float) Math.abs(p.y);
     }
 }
